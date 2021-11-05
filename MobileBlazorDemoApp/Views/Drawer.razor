@@ -1,0 +1,15 @@
+﻿@inherits ParentComponent
+<ContentView>
+    <StackLayout>
+        <StackLayout HeightRequest="140">
+            @*<Image Source="@("DrawerHeader.jpeg")" HeightRequest="140" Aspect="Aspect.AspectFill" />*@
+            <WebView Source="@(new HtmlWebViewSource(){Html=$"<h1>{Scope.Me.Name}</h1><img src='file:///android_res/drawable/DrawerHeader.jpeg' />"})" HeightRequest="140" HorizontalOptions="LayoutOptions.FillAndExpand" />
+        </StackLayout>
+        <ScrollView>
+            <StackLayout Padding="new Thickness(10)">
+                <DrawerButton Icon="@Icons.Home" Text="Home" TPage="Index" />
+                <DrawerButton Icon="@Icons.Users" Text="Users" TPage="UsersIndex" />
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</ContentView>

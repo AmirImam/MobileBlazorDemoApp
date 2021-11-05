@@ -1,0 +1,29 @@
+﻿@inherits ParentComponent
+<ContentView>
+    <ScrollView>
+        <StackLayout Margin="new Thickness(20)">
+
+            <Label Text="User name" />
+            <Entry @bind-Text="@user.Name" />
+
+            <StackLayout Orientation="StackOrientation.Horizontal">
+                <Button OnClick="SwitchGander" TextColor="@(user.Gander ==  Ganders.Male?Color.CornflowerBlue:Color.Black)" Text="Male" />
+                <Button OnClick="SwitchGander" TextColor="@(user.Gander ==  Ganders.Female?Color.CornflowerBlue:Color.Black)" Text="Female" />
+            </StackLayout>
+            <Button Text="Add" OnClick="AddUser" HorizontalOptions="LayoutOptions.FillAndExpand" />
+            <StackLayout Orientation="StackOrientation.Vertical">
+                @foreach (User user in usersList)
+                {
+                    <StackLayout Orientation="StackOrientation.Horizontal">
+                        <Image Source="@user.ImageUrl" />
+                        <StackLayout Orientation="StackOrientation.Vertical">
+                            <Label FontSize="20" Text="@user.Name" />
+                            <Label FontSize="10" Text="@(user.Name.Replace(" ","").ToLower()+"@mail.com")" />
+                        </StackLayout>
+                    </StackLayout>
+                }
+            </StackLayout>
+            
+        </StackLayout>
+    </ScrollView>
+</ContentView>

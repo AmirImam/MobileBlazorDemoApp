@@ -1,0 +1,71 @@
+﻿@inherits ParentComponent
+<ContentView>
+    <StackLayout>
+        <ScrollView VerticalOptions="LayoutOptions.FillAndExpand">
+            <StackLayout>
+
+                <StackLayout BackgroundColor="Colors.Primary" HorizontalOptions="LayoutOptions.FillAndExpand" HeightRequest="50">
+                    @if (Navigator.NavigationStack.Count > 1)
+                    {
+                        <IconLabel Icon="@Icons.ArrowRight" HorizontalOptions="LayoutOptions.EndAndExpand" FontSize="20" TextColor="Color.White" />
+                        <Label HorizontalOptions="LayoutOptions.StartAndExpand" />
+                    }
+                </StackLayout>
+                <ActivityIndicator IsRunning="BusyState" />
+                <StackLayout IsEnabled="@(!BusyState)">
+
+                    @if (Scope.Me == null)
+                    {
+                        <UserAccount />
+                    }
+                    else
+                    {
+                        if (Navigator.Content != null)
+                        {
+                            @Navigator.Content
+                        }
+                    }
+
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+        @if (Scope.Me != null)
+        {
+            <StackLayout>
+                <BoxView HeightRequest="1" Color="Colors.Dark" HorizontalOptions="LayoutOptions.FillAndExpand" />
+                <StackLayout Orientation="StackOrientation.Horizontal" VerticalOptions="LayoutOptions.EndAndExpand">
+                    @*<Button HorizontalOptions="LayoutOptions.FillAndExpand" Text="Home" OnClick="@(() => { NavigateTo<Index>(); })" />*@
+                    <IconLabel OnClick="@(() => { Navigator.NavigateToAsync<Index>(); })" Icon="@Icons.Home" HorizontalOptions="MenuButtonHorizontalOption" FontSize="MenuButtonFontSize" TextColor="MenuButtonTextColor" />
+                    <IconLabel OnClick="@(() => { Navigator.NavigateToAsync<UsersIndex>(); })" Icon="@Icons.List" HorizontalOptions="MenuButtonHorizontalOption" FontSize="MenuButtonFontSize" TextColor="MenuButtonTextColor" />
+                    <IconLabel OnClick="@(() => { Navigator.NavigateToAsync<UsersIndex>(); })" Icon="@Icons.Users" HorizontalOptions="MenuButtonHorizontalOption" FontSize="MenuButtonFontSize" TextColor="MenuButtonTextColor" />
+                    <IconLabel OnClick="@(() => { Navigator.NavigateToAsync<UsersIndex>(); })" Icon="@Icons.User" HorizontalOptions="MenuButtonHorizontalOption" FontSize="MenuButtonFontSize" TextColor="MenuButtonTextColor" />
+
+                </StackLayout>
+
+            </StackLayout>
+        }
+    </StackLayout>
+</ContentView>
+
+@code {
+
+
+    private LayoutOptions MenuButtonHorizontalOption = LayoutOptions.FillAndExpand;
+    private double MenuButtonFontSize = 25;
+    private Color MenuButtonTextColor = Colors.Primary;
+    protected override void OnInitialized()
+    {
+        Scope.RefreshMainLayout = StateHasChanged;
+        Scope.SetBusyState = ChangeBusyState;
+        //Navigator.NavigateTo<Index>();
+    }
+
+
+
+    private bool BusyState { get; set; }
+    private void ChangeBusyState(bool value)
+    {
+        BusyState = value;
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,11 @@
+﻿@typeparam TPage
+@inject NavigationService Navigator;
+<ContentView>
+    <StackLayout Padding="0" Orientation="StackOrientation.Horizontal" BackgroundColor="@(Color.FromHex("#f0f0f0"))">
+        <IconLabel Icon="@Icon" HorizontalOptions="LayoutOptions.StartAndExpand" TextColor="@(Colors.Primary)" FontSize="20" />
+
+        <Label Text="@Text" VerticalTextAlignment="TextAlignment.Center" 
+               HorizontalOptions="LayoutOptions.FillAndExpand" TextColor="@(Colors.Primary)" FontSize="18" />
+        <TapGestureRecognizer OnTapped="Navigate" />
+    </StackLayout>
+</ContentView>

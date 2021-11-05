@@ -1,0 +1,23 @@
+﻿
+<Button HorizontalOptions="HorizontalOptions"
+       VerticalOptions="VerticalOptions"
+       OnClick="OnClick"       
+       FontSize="FontSize" 
+       TextColor="TextColor" BackgroundColor="Color.Transparent"
+       FontFamily="FontAwesome.ttf#FontAwesome" Text="@($"{Icon}")" />
+@code {
+
+    [Parameter]
+    public string Icon { get; set; }
+    [Parameter]
+    public double FontSize { get; set; } = 10;
+    [Parameter]
+    public LayoutOptions HorizontalOptions { get; set; }
+    [Parameter]
+    public LayoutOptions VerticalOptions { get; set; }
+    [Parameter]
+    public Color TextColor { get; set; } = Colors.Dark;
+    [Parameter]
+    public Action OnClick { get; set; }
+
+}

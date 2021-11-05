@@ -1,0 +1,60 @@
+﻿@inherits ParentComponent
+<ContentView>
+    <ScrollView Padding="new Thickness(20)">
+        @if (DisplayType == DisplayTypes.Login)
+        {
+            <StackLayout>
+
+                <Label Text="Email" />
+                <Entry @bind-Text="loginModel.Email" />
+
+                <Label Text="Password" />
+                <Entry @bind-Text="loginModel.Password" IsPassword="true" />
+
+                <Button Text="Login" OnClick="SubmitLogin" HorizontalOptions="LayoutOptions.FillAndExpand" />
+                <Button Text="Create New Account" OnClick="@(()=> { DisplayType = DisplayTypes.Register; StateHasChanged(); })" />
+                <ActivityIndicator IsRunning="Busy" />
+
+            </StackLayout>
+        }
+        else
+        {
+            <StackLayout>
+                <Label Text="Name" />
+                <Entry @bind-Text="registerModel.Name" />
+
+                <Label Text="Email" />
+                <Entry @bind-Text="registerModel.Email" />
+
+                <Label Text="Gander" />
+                <StackLayout Orientation="StackOrientation.Horizontal">
+                    <IconLabel OnClick="SwitchGander" Icon="@Icons.Male" HorizontalOptions="LayoutOptions.FillAndExpand" FontSize="40" TextColor="@(registerModel.Gander == Ganders.Male?Colors.Primary:Colors.Dark)" />
+                    <IconLabel OnClick="SwitchGander" Icon="@Icons.Female" HorizontalOptions="LayoutOptions.FillAndExpand" FontSize="40" TextColor="@(registerModel.Gander == Ganders.Female?Colors.Primary:Colors.Dark)" />
+                </StackLayout>
+
+                <Label Text="Pick an image" />
+                <ScrollView Orientation="ScrollOrientation.Horizontal">
+                    <StackLayout Orientation="StackOrientation.Horizontal">
+
+                        @for (int i = 0; i < 80; i++)
+                        {
+                            string gender = registerModel.Gander == Ganders.Male ? "men" : "women";
+                            string imageSource = $"https://randomuser.me/api/portraits/{gender}/{i}.jpg";
+                            Color frameIsSelectedColor = registerModel.ImageUrl == imageSource ? Colors.Primary : Colors.Dark;
+                            <Frame Margin="new Thickness(5)" BorderColor="frameIsSelectedColor" CornerRadius="15">
+                                <Image Source="@imageSource" />
+                                <TapGestureRecognizer OnTapped="@(()=> { registerModel.ImageUrl = imageSource; })" />
+                            </Frame>
+                        }
+                    </StackLayout>
+                </ScrollView>
+                <Label Text="Password" />
+                <Entry @bind-Text="registerModel.Password" IsPassword="true" />
+
+                <Button OnClick="SubmitRegister" Text="Submit" HorizontalOptions="LayoutOptions.FillAndExpand" />
+                <Button Text="Already have Account" OnClick="@(()=> { DisplayType = DisplayTypes.Login; StateHasChanged(); })" />
+                <ActivityIndicator IsRunning="Busy" />
+            </StackLayout>
+        }
+    </ScrollView>
+</ContentView>

@@ -1,0 +1,19 @@
+﻿@inherits ParentComponent
+<ContentView>
+    @if (Scope.Me != null)
+    {
+
+    <StackLayout>
+        <Frame CornerRadius="15" BorderColor="Colors.Primary" WidthRequest="80" HeightRequest="120" HorizontalOptions="LayoutOptions.Center">
+            <Image Source="@Scope.Me.ImageUrl" Aspect="Aspect.Fill" />
+        </Frame>
+
+        <Label FontSize="30" Text="@($"Welcome {Scope.Me.Name}")" HorizontalTextAlignment="TextAlignment.Center" HorizontalOptions="LayoutOptions.FillAndExpand" />
+        <Label FontSize="20" Text="@($"Welcome {Scope.Me.Email}")" HorizontalTextAlignment="TextAlignment.Center" HorizontalOptions="LayoutOptions.FillAndExpand" />
+    </StackLayout>
+    }
+</ContentView>
+
+@code {
+
+}
